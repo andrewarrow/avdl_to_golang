@@ -3,7 +3,7 @@ package generator
 import "io/ioutil"
 import "strings"
 
-func WriteSchemaDotGo(pname string, items []string) {
+func WriteSchemaDotGo(pname string, items []string, struct_items []string) {
 	fields := `
 	import "strings"
 
@@ -38,6 +38,7 @@ func WriteSchemaDotGo(pname string, items []string) {
 
 	content = content + fields
 	content = content + "var schema map[string]fields = map[string]fields{" +
-		strings.Join(items, "\n") + "\n}"
+		strings.Join(items, "\n") + "\n}\n"
+	content = content + strings.Join(struct_items, "\n")
 	ioutil.WriteFile("schema.go", []byte(content), 0644)
 }

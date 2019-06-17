@@ -22,6 +22,7 @@ func main() {
 		return
 	}
 	items := []string{}
+	struct_items := []string{}
 	for _, f := range files {
 		schema, err := ioutil.ReadFile(dir + "/" + f.Name())
 		if err != nil {
@@ -30,6 +31,7 @@ func main() {
 		}
 		lines := strings.Split(string(schema), "\n")
 		items = append(items, generator.ProcessLines(lines))
+		struct_items = append(struct_items, generator.ProcessLinesForStructs(lines))
 	}
-	generator.WriteSchemaDotGo(pname, items)
+	generator.WriteSchemaDotGo(pname, items, struct_items)
 }

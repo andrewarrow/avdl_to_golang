@@ -3,7 +3,14 @@ package generator
 import "fmt"
 import "strings"
 
-func ProcessLines(lines []string) string {
+type FieldsAndName struct {
+	f_strings  []string
+	f_floats   []string
+	f_longs    []string
+	recordName string
+}
+
+func GetFieldsAndName(lines []string) FieldsAndName {
 	recordOn := false
 	recordName := ""
 	f_strings := []string{}
@@ -32,13 +39,43 @@ func ProcessLines(lines []string) string {
 			recordOn = true
 		}
 	}
+	f := FieldsAndName{}
+
+	f.f_longs = f_longs
+	f.f_strings = f_strings
+	f.f_floats = f_floats
+	f.recordName = recordName
+	return f
+}
+
+func ProcessLines(lines []string) string {
+	f := GetFieldsAndName(lines)
 
 	theFields := `"strings": "%s", "floats": "%s", "longs": "%s"`
-	filledIn := fmt.Sprintf(theFields, strings.Join(f_strings, ","),
-		strings.Join(f_floats, ","), strings.Join(f_longs, ","))
+	filledIn := fmt.Sprintf(theFields, strings.Join(f.f_strings, ","),
+		strings.Join(f.f_floats, ","), strings.Join(f.f_longs, ","))
 
 	content := fmt.Sprintf("\"%s\": newFields(map[string]string{%s}),",
-		recordName, filledIn)
+		f.recordName, filledIn)
+
+	return content
+}
+func ProcessLinesForStructs(lines []string) string {
+
+	f := GetFieldsAndName(lines)
+
+	content := fmt.Sprintf("\n\ntype %s struct {\n", f.recordName)
+
+	for _, f := range f.f_strings {
+		content = content + fmt.Sprintf("  %s string\n", f)
+	}
+	for _, f := range f.f_floats {
+		content = content + fmt.Sprintf("  %s float32\n", f)
+	}
+	for _, f := range f.f_longs {
+		content = content + fmt.Sprintf("  %s int64\n", f)
+	}
+	content = content + fmt.Sprintf("}\n")
 
 	return content
 }
