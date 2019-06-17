@@ -9,12 +9,13 @@ import "github.com/andrewarrow/avdl_to_golang/generator"
 
 func main() {
 
-	if len(os.Args) < 2 {
-		fmt.Println("./avdl_to_golang <dir>")
+	if len(os.Args) < 3 {
+		fmt.Println("./avdl_to_golang <dir> <package_name>")
 		return
 	}
 
 	dir := os.Args[1]
+	pname := os.Args[2]
 	files, err := ioutil.ReadDir(dir)
 	if err != nil {
 		fmt.Println(err)
@@ -30,5 +31,5 @@ func main() {
 		lines := strings.Split(string(schema), "\n")
 		items = append(items, generator.ProcessLines(lines))
 	}
-	generator.WriteSchemaDotGo(items)
+	generator.WriteSchemaDotGo(pname, items)
 }
