@@ -40,9 +40,5 @@ func ProcessLines(lines []string) {
 	content := fmt.Sprintf("\"%s\": newFields(map[string]string{%s}),",
 		recordName, filledIn)
 
-	template := `var schema map[string]fields = map[string]fields{
-  %s
-}`
-
-	fmt.Printf(template, content)
+	fmt.Printf("%s\n", content)
 }

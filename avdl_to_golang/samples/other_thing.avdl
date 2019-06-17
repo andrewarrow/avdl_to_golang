@@ -1,0 +1,12 @@
+@namespace("com.thing")
+
+protocol ThingProtocol
+
+  record OtherThing {
+    string flavor;
+    string other_name;
+    float latitude;
+    float longitude;
+    long time_now;
+    long time_then;
+  }
