@@ -3,12 +3,18 @@ package main
 import "io/ioutil"
 import "fmt"
 import "strings"
+import "os"
 
 import "github.com/andrewarrow/avdl_to_golang/generator"
 
 func main() {
 
-	dir := "samples"
+	if len(os.Args) < 2 {
+		fmt.Println("./avdl_to_golang <dir>")
+		return
+	}
+
+	dir := os.Args[1]
 	files, err := ioutil.ReadDir(dir)
 	if err != nil {
 		fmt.Println(err)
