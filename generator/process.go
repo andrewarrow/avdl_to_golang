@@ -62,7 +62,7 @@ func ProcessLines(lines []string) string {
 }
 
 func CapFirstLetter(s string) string {
-	return fmt.Sprintf("%s%s", strings.ToUpper(s[0:0]), s[1:len(s)])
+	return fmt.Sprintf("%s%s", strings.ToUpper(s[0:1]), s[1:len(s)])
 }
 func ProcessLinesForStructs(lines []string) string {
 
