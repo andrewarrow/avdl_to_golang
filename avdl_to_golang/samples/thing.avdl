@@ -1,0 +1,9 @@
+@namespace("com.thing")
+
+protocol ThingProtocol
+
+  record Thing {
+    string flavor;
+    float version;
+    long ip;
+  }
