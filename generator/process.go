@@ -65,17 +65,32 @@ func ProcessLinesForStructs(lines []string) string {
 	f := GetFieldsAndName(lines)
 
 	content := fmt.Sprintf("\n\ntype %s struct {\n", f.recordName)
+	allStrings := []string{}
+	allFloats := []string{}
+	allLongs := []string{}
 
 	for _, f := range f.f_strings {
 		content = content + fmt.Sprintf("  %s string\n", f)
+		allStrings = append(allStrings, fmt.Sprintf("t.%s", f))
 	}
 	for _, f := range f.f_floats {
 		content = content + fmt.Sprintf("  %s float32\n", f)
+		allFloats = append(allFloats, fmt.Sprintf("t.%s", f))
 	}
 	for _, f := range f.f_longs {
 		content = content + fmt.Sprintf("  %s int64\n", f)
+		allLongs = append(allLongs, fmt.Sprintf("t.%s", f))
 	}
 	content = content + fmt.Sprintf("}\n")
+
+	content = content + fmt.Sprintf("func (t %s) to_fields() ValueFields {\n", f.recordName)
+	content = content + fmt.Sprintf("  f := ValueFields{}\n")
+	content = content + fmt.Sprintf("  f.name = \"%s\"\n", f.recordName)
+	content = content + fmt.Sprintf("  f.stringFields = []string{%s}\n", strings.Join(allStrings, ","))
+	content = content + fmt.Sprintf("  f.floatFields = []float32{%s}\n", strings.Join(allFloats, ","))
+	content = content + fmt.Sprintf("  f.longFields = []int64{%s}\n", strings.Join(allLongs, ","))
+	content = content + fmt.Sprintf("  return f\n")
+	content = content + fmt.Sprintf("}\n", f)
 
 	return content
 }
