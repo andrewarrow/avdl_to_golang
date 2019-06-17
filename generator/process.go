@@ -60,6 +60,10 @@ func ProcessLines(lines []string) string {
 
 	return content
 }
+
+func CapFirstLetter(s string) string {
+	return fmt.Sprintf("%s%s", strings.ToUpper(s[0:0]), s[1:len(s)])
+}
 func ProcessLinesForStructs(lines []string) string {
 
 	f := GetFieldsAndName(lines)
@@ -70,14 +74,17 @@ func ProcessLinesForStructs(lines []string) string {
 	allLongs := []string{}
 
 	for _, f := range f.f_strings {
+		f = CapFirstLetter(f)
 		content = content + fmt.Sprintf("  %s string\n", f)
 		allStrings = append(allStrings, fmt.Sprintf("t.%s", f))
 	}
 	for _, f := range f.f_floats {
+		f = CapFirstLetter(f)
 		content = content + fmt.Sprintf("  %s float32\n", f)
 		allFloats = append(allFloats, fmt.Sprintf("t.%s", f))
 	}
 	for _, f := range f.f_longs {
+		f = CapFirstLetter(f)
 		content = content + fmt.Sprintf("  %s int64\n", f)
 		allLongs = append(allLongs, fmt.Sprintf("t.%s", f))
 	}
