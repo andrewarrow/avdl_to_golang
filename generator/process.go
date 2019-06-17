@@ -90,7 +90,7 @@ func ProcessLinesForStructs(lines []string) string {
 	content = content + fmt.Sprintf("  f.floatFields = []float32{%s}\n", strings.Join(allFloats, ","))
 	content = content + fmt.Sprintf("  f.longFields = []int64{%s}\n", strings.Join(allLongs, ","))
 	content = content + fmt.Sprintf("  return f\n")
-	content = content + fmt.Sprintf("}\n", f)
+	content = content + fmt.Sprintf("}\n")
 
 	return content
 }
