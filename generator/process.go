@@ -42,6 +42,12 @@ func ProcessLines(lines []string) string {
 	for _, f := range f_strings {
 		content = content + fmt.Sprintf("  %s string\n", f)
 	}
+	for _, f := range f_floats {
+		content = content + fmt.Sprintf("  %s float32\n", f)
+	}
+	for _, f := range f_longs {
+		content = content + fmt.Sprintf("  %s int64\n", f)
+	}
 	content = content + fmt.Sprintf("}\n")
 
 	return content
