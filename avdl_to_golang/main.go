@@ -20,6 +20,7 @@ func main() {
 		fmt.Println(err)
 		return
 	}
+	items := []string{}
 	for _, f := range files {
 		schema, err := ioutil.ReadFile(dir + "/" + f.Name())
 		if err != nil {
@@ -27,6 +28,7 @@ func main() {
 			return
 		}
 		lines := strings.Split(string(schema), "\n")
-		generator.ProcessLines(lines)
+		items = append(items, generator.ProcessLines(lines))
 	}
+	generator.WriteSchemaDotGo(items)
 }

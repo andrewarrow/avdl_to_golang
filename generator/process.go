@@ -3,7 +3,7 @@ package generator
 import "fmt"
 import "strings"
 
-func ProcessLines(lines []string) {
+func ProcessLines(lines []string) string {
 	recordOn := false
 	recordName := ""
 	f_strings := []string{}
@@ -40,5 +40,5 @@ func ProcessLines(lines []string) {
 	content := fmt.Sprintf("\"%s\": newFields(map[string]string{%s}),",
 		recordName, filledIn)
 
-	fmt.Printf("%s\n", content)
+	return content
 }
