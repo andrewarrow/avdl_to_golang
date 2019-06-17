@@ -33,12 +33,16 @@ func ProcessLines(lines []string) string {
 		}
 	}
 
-	theFields := `"strings": "%s", "floats": "%s", "longs": "%s"`
-	filledIn := fmt.Sprintf(theFields, strings.Join(f_strings, ","),
-		strings.Join(f_floats, ","), strings.Join(f_longs, ","))
+	//theFields := `"strings": "%s", "floats": "%s", "longs": "%s"`
+	//filledIn := fmt.Sprintf(theFields, strings.Join(f_strings, ","),
+	//strings.Join(f_floats, ","), strings.Join(f_longs, ","))
 
-	content := fmt.Sprintf("\"%s\": newFields(map[string]string{%s}),",
-		recordName, filledIn)
+	content := fmt.Sprintf("\n\ntype %s struct {\n", recordName)
+
+	for _, f := range f_strings {
+		content = content + fmt.Sprintf("  %s string\n", f)
+	}
+	content = content + fmt.Sprintf("}\n")
 
 	return content
 }
