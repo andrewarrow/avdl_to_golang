@@ -83,7 +83,7 @@ func ProcessLinesForStructs(lines []string) string {
 	}
 	content = content + fmt.Sprintf("}\n")
 
-	content = content + fmt.Sprintf("func (t %s) to_fields() ValueFields {\n", f.recordName)
+	content = content + fmt.Sprintf("func (t %s) ToFields() ValueFields {\n", f.recordName)
 	content = content + fmt.Sprintf("  f := ValueFields{}\n")
 	content = content + fmt.Sprintf("  f.name = \"%s\"\n", f.recordName)
 	content = content + fmt.Sprintf("  f.stringFields = []string{%s}\n", strings.Join(allStrings, ","))
