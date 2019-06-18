@@ -14,4 +14,7 @@ func main() {
 	mutex.Unlock()
 
 	fmt.Println(fields1, fields2)
+
+	t := Thing{Version: 1.1, Ip: 100, Flavor: "hi"}
+	fmt.Println(t, t.ToFields())
 }
